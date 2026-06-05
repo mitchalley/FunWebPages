@@ -13,14 +13,19 @@ const thanksKicker = document.querySelector("#thanks-kicker");
 const thanksTitle = document.querySelector("#thanks-title");
 const thanksCopy = document.querySelector("#thanks-copy");
 const choicePopup = document.querySelector("#choice-popup");
+const noCounter = document.querySelector("#no-counter");
+const noCount = document.querySelector("#no-count");
 const allowedDateValues = new Set([
   "2026-06-07",
   "2026-06-08",
   "2026-06-09",
   "2026-06-11",
 ]);
+const finePointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+const requiredNoPresses = 3;
 
 let choicePopupTimer;
+let noPressCount = 0;
 const noMotion = {
   x: 120,
   y: 22,
@@ -29,6 +34,7 @@ const noMotion = {
   pointerX: 0,
   pointerY: 0,
   hasPointer: false,
+  driftPhase: Math.random() * Math.PI * 2,
 };
 
 function showPanel(panel) {
@@ -38,6 +44,7 @@ function showPanel(panel) {
 
   if (panel === introPanel) {
     resetNoButton();
+    resetNoPresses();
   } else if (choicePopup) {
     choicePopup.hidden = true;
   }
@@ -52,6 +59,12 @@ function resetNoButton() {
 
   const position = getDefaultNoPosition();
   setNoButtonPosition(position.x, position.y);
+}
+
+function resetNoPresses() {
+  noPressCount = 0;
+  noCount.textContent = "0";
+  noCounter.hidden = true;
 }
 
 function clamp(value, min, max) {
@@ -121,12 +134,32 @@ function repelNoButton(zoneRect, buttonRect, maxLeft, maxTop) {
   noMotion.vy += (targetY - noMotion.y) * 0.15;
 }
 
+function shouldDriftNoButton() {
+  return !finePointerQuery.matches && !noMotion.hasPointer;
+}
+
+function driftNoButton(maxLeft, maxTop) {
+  const now = performance.now() / 1000;
+  const minX = Math.min(122, maxLeft);
+  const usableWidth = Math.max(0, maxLeft - minX);
+  const targetX =
+    minX + usableWidth * (0.5 + 0.47 * Math.sin(now * 0.95 + noMotion.driftPhase));
+  const targetY =
+    maxTop * (0.5 + 0.44 * Math.sin(now * 1.28 + noMotion.driftPhase + 1.7));
+
+  noMotion.vx += (targetX - noMotion.x) * 0.018;
+  noMotion.vy += (targetY - noMotion.y) * 0.02;
+}
+
 function animateNoButton() {
   if (!introPanel.hidden) {
     const { zoneRect, buttonRect, maxLeft, maxTop } = getNoBounds();
+    const isDrifting = shouldDriftNoButton();
 
     if (noMotion.hasPointer) {
       repelNoButton(zoneRect, buttonRect, maxLeft, maxTop);
+    } else if (isDrifting) {
+      driftNoButton(maxLeft, maxTop);
     } else {
       easeNoButtonHome(maxLeft, maxTop);
     }
@@ -135,7 +168,7 @@ function animateNoButton() {
     noMotion.vy *= 0.74;
 
     const speed = Math.hypot(noMotion.vx, noMotion.vy);
-    const maxSpeed = 5.8;
+    const maxSpeed = isDrifting ? 2.7 : 5.8;
 
     if (speed > maxSpeed) {
       noMotion.vx = (noMotion.vx / speed) * maxSpeed;
@@ -172,7 +205,17 @@ yesButton.addEventListener("click", () => {
 });
 
 noButton.addEventListener("click", () => {
-  showPanel(noPanel);
+  noPressCount += 1;
+  noCount.textContent = String(noPressCount);
+  noCounter.hidden = false;
+
+  if (noPressCount >= requiredNoPresses) {
+    showPanel(noPanel);
+    return;
+  }
+
+  noMotion.vx += 2.3;
+  noMotion.vy += noPressCount % 2 === 0 ? -1.8 : 1.8;
 });
 
 backButton.addEventListener("click", () => {

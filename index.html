@@ -41,6 +41,9 @@
           <button class="secondary-action runaway" id="no-button" type="button">
             No
           </button>
+          <p class="no-counter" id="no-counter" aria-live="polite" hidden>
+            No pressed <span id="no-count">0</span> / 3
+          </p>
         </div>
       </section>
 
@@ -64,7 +67,7 @@
               value="sunset picnic (optional Oswald and Oakley invitation)"
             >
             <span class="option-icon">2</span>
-            <span class="option-title">Sunset Picnic</span>
+            <span class="option-title">Sunset Picnic w/ takeout</span>
             <span class="option-copy">Optional Oswald and Oakley invitation (Treats will be provided).</span>
           </label>
           <label class="date-option">
@@ -100,7 +103,7 @@
           </div>
 
           <label>
-            <span>Quick remarks</span>
+            <span>Quick remarks (Optional)</span>
             <textarea
               id="note-input"
               name="note"
