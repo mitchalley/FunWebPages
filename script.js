@@ -259,7 +259,7 @@ async function sendDecision(submission) {
 function openMailFallback(submission) {
   const subject = encodeURIComponent(`Second date answer: ${submission.decision}`);
   const body = encodeURIComponent(makePlainText(submission));
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:mitch1.alley@gmail.com?subject=${subject}&body=${body}`;
 }
 
 function setSubmitting(form, isSubmitting) {
