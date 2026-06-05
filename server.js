@@ -5,6 +5,12 @@ const path = require("node:path");
 const PORT = Number(process.env.PORT || 4173);
 const PUBLIC_DIR = __dirname;
 const MAX_BODY_BYTES = 64 * 1024;
+const ALLOWED_DATE_VALUES = new Set([
+  "2026-06-07",
+  "2026-06-08",
+  "2026-06-09",
+  "2026-06-11",
+]);
 
 const contentTypes = {
   ".html": "text/html; charset=utf-8",
@@ -140,6 +146,10 @@ function validateSubmission(submission) {
   if (submission.decision === "Yes") {
     if (!submission.datePlan || !submission.date || !submission.time) {
       return "Missing date details.";
+    }
+
+    if (!ALLOWED_DATE_VALUES.has(submission.date)) {
+      return "Please choose an available date.";
     }
   }
 

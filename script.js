@@ -9,11 +9,16 @@ const dateForm = document.querySelector("#date-form");
 const noForm = document.querySelector("#no-form");
 const backButton = document.querySelector("#back-button");
 const tryAgainButton = document.querySelector("#try-again-button");
-const dateInput = document.querySelector("#date-input");
 const thanksKicker = document.querySelector("#thanks-kicker");
 const thanksTitle = document.querySelector("#thanks-title");
 const thanksCopy = document.querySelector("#thanks-copy");
 const choicePopup = document.querySelector("#choice-popup");
+const allowedDateValues = new Set([
+  "2026-06-07",
+  "2026-06-08",
+  "2026-06-09",
+  "2026-06-11",
+]);
 
 let choicePopupTimer;
 const noMotion = {
@@ -25,14 +30,6 @@ const noMotion = {
   pointerY: 0,
   hasPointer: false,
 };
-
-function todayIso() {
-  const today = new Date();
-  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-  return today.toISOString().slice(0, 10);
-}
-
-dateInput.min = todayIso();
 
 function showPanel(panel) {
   [introPanel, datePanel, noPanel, thanksPanel].forEach((item) => {
@@ -282,15 +279,16 @@ async function handleSubmission(form, submission) {
 dateForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const selectedPlan = document.querySelector("input[name='datePlan']:checked");
+  const selectedDate = document.querySelector("#date-input").value;
 
-  if (!selectedPlan) {
+  if (!selectedPlan || !allowedDateValues.has(selectedDate)) {
     return;
   }
 
   handleSubmission(dateForm, {
     decision: "Yes",
     datePlan: selectedPlan.value,
-    date: document.querySelector("#date-input").value,
+    date: selectedDate,
     time: document.querySelector("#time-input").value,
     note: document.querySelector("#note-input").value.trim(),
     submittedAt: new Date().toISOString(),

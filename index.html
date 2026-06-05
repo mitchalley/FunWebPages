@@ -47,7 +47,7 @@
       <section class="date-panel" id="date-panel" aria-labelledby="date-title" hidden>
         <div class="date-heading">
           <p class="eyebrow">Date logistics</p>
-          <h2 id="date-title">Pick the adventure</h2>
+          <h2 id="date-title">What sounds appealing</h2>
         </div>
 
         <div class="option-grid" role="radiogroup" aria-label="Second date options">
@@ -65,7 +65,7 @@
             >
             <span class="option-icon">2</span>
             <span class="option-title">Sunset Picnic</span>
-            <span class="option-copy">Optional Oswald and Oakley invitation.</span>
+            <span class="option-copy">Optional Oswald and Oakley invitation (Treats will be provided).</span>
           </label>
           <label class="date-option">
             <input type="radio" name="datePlan" value="mini golf">
@@ -85,7 +85,13 @@
           <div class="form-row">
             <label>
               <span>Date</span>
-              <input id="date-input" name="date" type="date" required>
+              <select id="date-input" name="date" required>
+                <option value="">Choose a date</option>
+                <option value="2026-06-07">June 7th 2026</option>
+                <option value="2026-06-08">June 8th 2026</option>
+                <option value="2026-06-09">June 9th 2026</option>
+                <option value="2026-06-11">June 11th 2026</option>
+              </select>
             </label>
             <label>
               <span>Time</span>
