@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Second Date?</title>
+    <meta
+      name="description"
+      content="A playful second-date invitation with date ideas and scheduling."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro-panel" aria-labelledby="invite-title">
+        <div class="party-marks" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="intro-copy">
+          <div class="ticket-label" aria-hidden="true">
+            <span>RSVP</span>
+            <span>No. 02</span>
+          </div>
+          <p class="eyebrow">!Important!</p>
+          <h1 id="invite-title">Time for round two</h1>
+          <p class="lede">
+            I can't promise it'll be less awkward, but I can promise I'll be on time for this one.
+          </p>
+        </div>
+
+        <div class="decision-zone" id="decision-zone">
+          <button class="primary-action" id="yes-button" type="button">
+            Yes
+          </button>
+          <button class="secondary-action runaway" id="no-button" type="button">
+            No
+          </button>
+        </div>
+      </section>
+
+      <section class="date-panel" id="date-panel" aria-labelledby="date-title" hidden>
+        <div class="date-heading">
+          <p class="eyebrow">Date logistics</p>
+          <h2 id="date-title">Pick the adventure</h2>
+        </div>
+
+        <div class="option-grid" role="radiogroup" aria-label="Second date options">
+          <label class="date-option">
+            <input type="radio" name="datePlan" value="ice cream + walk">
+            <span class="option-icon">1</span>
+            <span class="option-title">Ice Cream + walk</span>
+            <span class="option-copy">Something sweet, then an easy wander.</span>
+          </label>
+          <label class="date-option">
+            <input
+              type="radio"
+              name="datePlan"
+              value="sunset picnic (optional Oswald and Oakley invitation)"
+            >
+            <span class="option-icon">2</span>
+            <span class="option-title">Sunset Picnic</span>
+            <span class="option-copy">Optional Oswald and Oakley invitation.</span>
+          </label>
+          <label class="date-option">
+            <input type="radio" name="datePlan" value="mini golf">
+            <span class="option-icon">3</span>
+            <span class="option-title">Mini Golf</span>
+            <span class="option-copy">Be careful, I get competitive</span>
+          </label>
+          <label class="date-option joke-option" aria-disabled="true">
+            <input type="radio" name="datePlan" value="Free solo delicate arch" disabled>
+            <span class="option-icon">!</span>
+            <span class="option-title">Free solo delicate arch</span>
+            <span class="option-copy">100% a joke. Firmly not selectable. Sorry.</span>
+          </label>
+        </div>
+
+        <form class="schedule-form" id="date-form">
+          <div class="form-row">
+            <label>
+              <span>Date</span>
+              <input id="date-input" name="date" type="date" required>
+            </label>
+            <label>
+              <span>Time</span>
+              <input id="time-input" name="time" type="time" required>
+            </label>
+          </div>
+
+          <label>
+            <span>Quick remarks</span>
+            <textarea
+              id="note-input"
+              name="note"
+              rows="3"
+              placeholder="Notes, preferences, or backup idea"
+            ></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="primary-action" type="submit">Send my answer</button>
+            <button class="text-action" id="back-button" type="button">Back</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="date-panel response-panel" id="no-panel" aria-labelledby="no-title" hidden>
+        <div class="date-heading">
+          <p class="eyebrow">Fair enough</p>
+          <h2 id="no-title">No pressure at all</h2>
+          <p class="panel-copy">
+            Sad, BUT honesty is always appreciated! Good luck!
+          </p>
+        </div>
+
+        <form class="schedule-form" id="no-form">
+          <label>
+            <span>Optional note</span>
+            <textarea
+              id="no-note"
+              name="note"
+              rows="3"
+              placeholder="A kind note, a rain check, or nothing at all"
+            ></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="primary-action" type="submit">Send my answer</button>
+            <button class="text-action" id="try-again-button" type="button">Try again</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="date-panel response-panel" id="thanks-panel" aria-live="polite" hidden>
+        <p class="eyebrow" id="thanks-kicker">Sent</p>
+        <h2 id="thanks-title">Answer received.</h2>
+        <p class="panel-copy" id="thanks-copy">
+          The message is on its way.
+        </p>
+      </section>
+
+      <div class="choice-popup" id="choice-popup" role="status" aria-live="polite" hidden>
+        <p class="eyebrow">Excellent choice</p>
+        <p>Details submitted.</p>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "second-date-invite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A playful second-date invitation webapp.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
